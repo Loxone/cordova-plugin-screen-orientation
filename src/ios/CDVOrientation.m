@@ -59,6 +59,9 @@
             NSValue *value;
             NSObject *value16;
             if (orientationMask != 15) {
+                if (!_isLocked) {
+                    _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+                }
                 UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
                     if (@available(iOS 16.0, *)) {
@@ -110,7 +113,6 @@
                     }];
                 } else {
                     [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-                    _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 }
             } else {
                 _isLocked = false;
